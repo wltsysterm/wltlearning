@@ -14,7 +14,6 @@ public class Client {
      * @param args
      */
     public static void main(String[] args) {
-
         Leader director = new Director("张三");
         Leader manager = new Manager("李四");
         Leader gManager = new GeneralManager("王五");
