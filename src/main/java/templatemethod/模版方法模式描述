@@ -1,0 +1,32 @@
+假如现在老板让你做一个汽车的模型，要求只要完成基本功能即可，不考虑扩展性，那你会怎么做呢？
+--
+定义一个抽象类，包含悍马的基本功能，再定义一个run方法用来调度悍马的所有基本功能，这个run只在抽象类，继承的子类没有重写该方法。
+
+
+模板方法模式的定义
+模板方法模式很简单，它的定义是：Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses define certain steps of an algorithm without changing the algorithm's structure. 即定义一个操作中的算法框架，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构即可冲定义该算法的某些特定步骤。
+模板方法模式确实很简单，仅仅使用了java的继承机制，但是它是一个应用非常广泛的模式，其中AbstractClass叫做抽象模板，它的方法分为两类：基本方法（由子类去实现）和模板方法（可以有一个或多个，也就是一个框架，实现对基本方法的调度，完成固定的逻辑）。为了防止恶意的操作，一般模板方法上都添加上final关键字，不允许被覆写.
+AbstractClass模板:
+    public abstract class AbstractClass {
+        //基本方法
+        protected abstract void doSomething();
+        protected abstract void doAnything();
+        //模板方法：抽取子类都会去调用基本方法的特点为共性
+        public void templateMethod() {
+            //调用基本方法，完成相关的逻辑
+            this.doAnything();
+            this.doSomething();
+        }
+    }
+模板方法模式的优缺点
+  优点：
+    1）封装不变部分，扩展可变部分：把认为不变部分的算法封装到父类实现，可变部分则可以通过继承来实现，很容易扩展。
+    2）提取公共部分代码，便于维护：上面悍马的例子就是个很好的解释。
+    3）行为由父类控制，由子类实现。
+  缺点：
+    模板方法模式颠倒了我们平常的设计习惯：抽象类负责声明最抽象、最一般的事物属性和方法，实现类实现具体的事物属性和方法。在复杂的项目中可能会带来代码阅读的难度。
+
+模板方法模式的扩展:
+如现有object里头的抽象类，加了isAlarm：
+这个实现很好，我们在实现类中定义一个判断标记，然后对外提供一个public接口setAlarm来让外界设置这个判断标记，这就像是开关一样，想让它ture和false都行。
+这个isAlarm方法俗称钩子方法。有了钩子方法的模板方法模式才算完美，大家可以想象一下，由子类的一个方法返回值决定公共部分的执行结果，这个是很有吸引力的
