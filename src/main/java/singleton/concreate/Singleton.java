@@ -34,8 +34,9 @@ public class Singleton {
     //返回实例对象  
     public static Singleton getInstance() {  
         Random random = new Random();
-        //随机挑选一个实例  
-        indexOfInstance = random.nextInt(maxNumOfInstance);  
+        //随机挑选一个实例  会产生伪随机的正整数
+        //System.out.println(random1.nextInt(100)); //100是不包含在内的，只产生0~99之间的数。
+        indexOfInstance = random.nextInt(maxNumOfInstance);
         return instanceList.get(indexOfInstance);  
     }  
     public void test() {  
